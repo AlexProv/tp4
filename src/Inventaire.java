@@ -7,7 +7,7 @@ import java.util.List;
 public class Inventaire{
 	
 	private static JoueurManager jm = new JoueurManager();
-	
+	public static Connexion cx;
 	/**
 	 * affiche le menu console
 	 * @throws IOException si il y a une erreure en lecture de la ligne
@@ -118,8 +118,11 @@ public class Inventaire{
 	 * fonction main commance le programe
 	 * @param args pour lancer le programe, on ne s'en sert pas.
 	 * @throws IOException 
+	 * @throws InventaireException 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InventaireException {
+		
+		cx = new Connexion(args[0]);
 		lireFichier();
 		afficherMenu();
 		

@@ -11,6 +11,9 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.odi.*;
+
 /**
  * La classe Interaction permet de gerer les entrees/sorties et les messages. 
  * 
@@ -18,7 +21,6 @@ import java.util.List;
  *
  */
 public class Interaction {
-	
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private static Writer writer;
 	
@@ -152,8 +154,10 @@ public class Interaction {
 	 * La methode IOSauvegarder permet de sauvegarder un CSV
 	 * @param fileContent le contenu du fichier
 	 * @throws IOException
+	 * @throws InventaireException 
 	 */
-	public static void IOSauvegarder(String fileContent) throws IOException{
+	public static void IOSauvegarder(String fileContent) throws IOException, InventaireException{
+		/*
 		int nb = 1;
 	    	while(new File(System.getProperty("user.dir") + "\\src\\test" + nb + ".txt").exists())
 	    		nb++;
@@ -161,7 +165,20 @@ public class Interaction {
 			        new FileOutputStream(System.getProperty("user.dir") + "\\src\\test" + nb + ".txt"), "utf-8"));
 			writer.write(fileContent);
 			System.out.println("Le fichier " + System.getProperty("user.dir") + "\\src\\test" + nb + ".txt a ete cree avec succes.");
-	    writer.close();
+	    writer.close();*/
+		Transaction tr = Transaction.begin(ObjectStore.UPDATE);
+		try
+		{
+			//fait le check up 
+			if(true)
+			throw new InventaireException("oups");
+			tr.commit(ObjectStore.RETAIN_HOLLOW);
+		}
+		catch (InventaireException e)
+		{
+			tr.abort(ObjectStore.RETAIN_HOLLOW);
+			throw e;
+		}
 	}
 	/**
 	 * La methode IOSauvegarderRapport permet de sauvegarder un rapport (option 5).
