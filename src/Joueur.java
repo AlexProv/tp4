@@ -80,7 +80,6 @@ public class Joueur implements Comparable<Joueur>{
 		}
 	}
 	
-	@Override
 	public int compareTo(Joueur n) {
 		return n.clefId.compareTo(this.clefId) ;
 	}

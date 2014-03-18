@@ -108,14 +108,10 @@ public class Inventaire{
 	private static void rapport(){
 		String reponse = Interaction.IOtypeRapport();
 		String contenuRapport = jm.afficherTout();
-		switch (reponse) {
-		case "E":
+		if(reponse == "E")
 			System.out.print(contenuRapport);
-			break;
-		case "F":
+		else if(reponse == "F")
 			Interaction.IOSauvegarderRapport(contenuRapport);
-			break;
-		}
 	}
 	
 	/**

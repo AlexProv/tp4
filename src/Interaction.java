@@ -155,16 +155,12 @@ public class Interaction {
 	 */
 	public static void IOSauvegarder(String fileContent) throws IOException{
 		int nb = 1;
-	    try {
 	    	while(new File(System.getProperty("user.dir") + "\\src\\test" + nb + ".txt").exists())
 	    		nb++;
 			writer = new BufferedWriter(new OutputStreamWriter(
 			        new FileOutputStream(System.getProperty("user.dir") + "\\src\\test" + nb + ".txt"), "utf-8"));
 			writer.write(fileContent);
 			System.out.println("Le fichier " + System.getProperty("user.dir") + "\\src\\test" + nb + ".txt a ete cree avec succes.");
-		} catch (UnsupportedEncodingException | FileNotFoundException e) {
-			e.printStackTrace();
-		}
 	    writer.close();
 	}
 	/**
