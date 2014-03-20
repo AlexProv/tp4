@@ -11,8 +11,9 @@ public class Inventaire{
 	/**
 	 * affiche le menu console
 	 * @throws IOException si il y a une erreure en lecture de la ligne
+	 * @throws InventaireException 
 	 */
-	public static void afficherMenu() throws IOException{
+	public static void afficherMenu() throws IOException, InventaireException{
 		Interaction.IOmenu();
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -97,8 +98,9 @@ public class Inventaire{
 	/**
 	 * imprime les informations dans un fichier
 	 * @throws IOException
+	 * @throws InventaireException 
 	 */
-	private static void sauvegarderFichier() throws IOException{
+	private static void sauvegarderFichier() throws IOException, InventaireException{
 		Interaction.IOSauvegarder(jm.afficherInfoFichierTexte());
 	}
 	
