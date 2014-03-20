@@ -1,0 +1,9 @@
+Progress Software Corporation, 14 Oak Park, Bedford, Mass, USA
+Customer ID: "10178378"
+Customer Name: "Universite de Sherbrooke"
+Serial Number: "4052276"
+Number of CPUs: "1"
+Expiration Date: "NONE"
+Product Code: "2716"
+Product Version: "7.1"
+License Key: "01163f720c651990c5e56e02992931864af6272e9b51f9c37c5822d47e56a26f1e92df9024107fb95c26f061f712073f9c0d6de7201a3aea257f29207cf1e49e9b0c71decf8cc192b15025876e84b9b11f7f5f0e5ad01b66ce1c51ce3cef7f22ff75e352668e52e1e8f0777598ae628d611618f3a72d74caad785069c8cb298c2b"
