@@ -1,71 +1,103 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-/**
- * La classe Carte 
- * 
- * @author Mathieu Lavoie, Vincent Gagnon et Alex Provencher
- *
- */
-public class Carte{
+import com.odi.DatabaseRootNotFoundException;
+import com.odi.ObjectStore;
+import com.odi.Transaction;
+import com.odi.util.OSHashMap;
 
-	private String titre, equipe;
-	private int annee;
-	
+
+public class Carte {
+
 	/**
-	 * Le constructeur Carte permet de donner les informations sur une carte
-	 * @param titre Le titre de la carte
-	 * @param equipe Le nom de l'equipe du joueur de la carte
-	 * @param annee L'annee de parution
+	 * La classe Carte 
+	 * 
+	 * @author Mathieu Lavoie, Vincent Gagnon et Alex Provencher
+	 *
 	 */
 	
-	public Carte(String titre, String equipe, int annee)
+	private Map<String, TupleCarte> allCartes;
+	private int nbCartes;
+	
+	/**
+	 * Initialize les valeur pour partire un jeu de carte
+	 */
+	@SuppressWarnings("unchecked")
+	public Carte(Connexion cx)
 	{
-		setEquipe(equipe);
-		setTitre(titre);
-		setAnnee(annee);
-	}
-	
-	public String getTitre() {
-		return titre;
-	}
-
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
-
-	public String getEquipe() {
-		return equipe;
-	}
-
-	public void setEquipe(String equipe) {
-		this.equipe = equipe;
-	}
-
-	public int getAnnee() {
-		return annee;
-	}
-
-	public void setAnnee(int annee) {
-		this.annee = annee;
+		/* Lire ou creer la collection des livres */
+		Transaction tr = Transaction.begin(ObjectStore.UPDATE);
+		try {
+			try {
+				allCartes = (Map<String, TupleCarte>) cx.getDatabase()
+						.getRoot("allCartes");
+			} catch (DatabaseRootNotFoundException e) {
+				/* Creation de la racine */
+				cx.getDatabase().createRoot("allCartes",
+						allCartes = new OSHashMap<String, TupleCarte>(10));
+			}
+			/* Fin de la transaction avec retention des objets creux */
+			tr.commit(ObjectStore.RETAIN_HOLLOW);
+		} catch (Exception e) {
+			tr.abort(ObjectStore.RETAIN_HOLLOW);
+		}
 	}
 	
 	/**
-	 * La methode afficher permet d'afficher les informations sur une carte comme dans un rapport
-	 * @return Les donnees de la carte
+	 * permet d'ajouter des cartes au jeuDeCartes (par appelle a la console pour les parametres de la cartes)
+	 * @param numero de la carte actuel
 	 */
-	public String afficher() {
-		String s = "\t Titre : " + titre + "\n";
-		s += "\t Equipe : " + equipe + "\n";
-		s += "\t Annee de parution : " + annee + "\n";
-		return s;
+	public void ajouter(int k)
+	{
+		if(nbCartes < 20){
+			TupleCarte c = Interaction.IOcarte(k);
+			listCartes.add(c);
+			nbCartes++;
+		}
+	}
+	/**
+	 * permet d'ajouter des cartes au jeuDeCartes
+	 * @param Titre de la cartes
+	 * @param nom de l'equipe de la carte
+	 * @param annee de la carte
+	 *//*
+	public void ajouter(String titre, String equipe, int annee){
+		TupleCarte c = new TupleCarte(titre, equipe, annee);
+		listCartes.add(c);
+		
+		nbCartes++;
 	}
 	
-	/**
-	 * La methode afficherFichierTexte permet d'obtenir les informations sur la carte sous le format CSV
-	 * @return Les donnees d'une carte sous le format CSV
-	 */
-	public String afficherFichierTexte(){
-		String s = ";\"" + titre + "\";\"" + equipe + "\";\"" + annee + "\"";
-		return s;
+	*//**
+	 * permet de suprimer les carte demande une confirmation 
+	 * @param nom du joueur ou un suprime ces cartes
+	 *//*
+	public boolean deleteCarte(String nom)
+	{
+		afficherTout();
+		if(Interaction.confirmationDelete()){
+			listCartes.clear();
+			Interaction.deleteConfirme(nom);
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
-
+	
+	*//**
+	 * constuit une string avec tout les joueur et leur cartes. 
+	 * @return retourne tout les joueurs et toutes leurs cartes.
+	 *//*
+	public String afficherTout() {
+		String s = "Le joueur a "+ nbCartes +" cartes enregistre\n";
+		for(TupleCarte c : listCartes)
+		{
+			s += "Carte " + (listCartes.indexOf(c)+1)   + " : \n";
+			s += c.afficher();
+		}
+		return s;
+	}*/
+	
 }

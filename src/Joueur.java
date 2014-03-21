@@ -1,107 +1,130 @@
-import java.util.Arrays;
+import java.util.Map;
 
-public class Joueur implements Comparable<Joueur>{
-	
-	private String clefId;
-	private String nom;
-	private String prenom;
-	private int nbCarte;
-	private JeuDeCarte jeuDeCarte;
-	
-	public JeuDeCarte getJeuDeCarte() {
-		return jeuDeCarte;
-	}
-	public void setJeuDeCarte(JeuDeCarte jeuDeCarte) {
-		this.jeuDeCarte = jeuDeCarte;
-	}
-	public int getNbCarte() {
-		return nbCarte;
-	}
-	public void setNbCarte(int nbCarte) {
-		this.nbCarte = nbCarte;
-	}
-	public String getClefId() {
-		return clefId;
-	}
-	public void setClefId(String clef) {
-		clefId = clef;
-	}
+import com.odi.DatabaseRootNotFoundException;
+import com.odi.ObjectStore;
+import com.odi.Transaction;
+import com.odi.util.OSHashMap;
 
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public String getPrenom() {
-		return prenom;
-	}
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
+public class Joueur {
+	// private SortedSet<Joueur> ListJoueur;
+	private Map<String, TupleJoueur> allJoueurs;
 
 	/**
-	 * initialize les valeur pour le joueur 
-	 * @param id du joueur a cree.
+	 * Initialize le joueur manager
 	 */
-	public Joueur(String id)
-	{
-		jeuDeCarte = new JeuDeCarte();
-		clefId = id;
-		
-		String nomComplet = Interaction.IOJoueurNom();
-		String[] nomArray = nomComplet.split(" ");
-		setPrenom(nomArray[0]);
-		setNom(nomArray[1]);
-		
-		int i = Interaction.IOnbCartes();
-		setNbCarte(i);
-		for(int k = 1; k<=i;k++){
-			jeuDeCarte.ajouter(k);
+	@SuppressWarnings("unchecked")
+	public Joueur(Connexion cx) throws Exception {
+
+		/* Lire ou creer la collection des livres */
+		Transaction tr = Transaction.begin(ObjectStore.UPDATE);
+		try {
+			try {
+				allJoueurs = (Map<String, TupleJoueur>) cx.getDatabase()
+						.getRoot("allJoueurs");
+			} catch (DatabaseRootNotFoundException e) {
+				/* Creation de la racine */
+				cx.getDatabase().createRoot("allJoueurs",
+						allJoueurs = new OSHashMap<String, TupleJoueur>(10));
+			}
+			/* Fin de la transaction avec retention des objets creux */
+			tr.commit(ObjectStore.RETAIN_HOLLOW);
+		} catch (Exception e) {
+			tr.abort(ObjectStore.RETAIN_HOLLOW);
+			throw e;
 		}
 	}
-	
+
 	/**
-	 * initlaize les valeur pour le joueur (appeller par le fichier texte) 
-	 * @param data pour initializer le joueur.
+	 * Verifie si un livre existe
 	 */
-	public Joueur(String[] data){
-		jeuDeCarte = new JeuDeCarte();
-		setClefId(data[0]);
-		String[] nom = data[1].split(" ");
-		setPrenom(nom[0]); 
-		setNom(nom[1]);
-		setNbCarte(Integer.parseInt(data[2]));
-		String[] infoCarte = Arrays.copyOfRange(data, 3, data.length);
-		for(int i = 0; i < infoCarte.length - 1; ++i){
-			jeuDeCarte.ajouter(infoCarte[i], infoCarte[i+1], Integer.parseInt(infoCarte[i+2]));
-			i += 2;
-		}
+	public boolean existe(String idJoueur) {
+		return allJoueurs.get(idJoueur) != null;
 	}
-	
-	public int compareTo(Joueur n) {
-		return n.clefId.compareTo(this.clefId) ;
-	}
-	
+
 	/**
-	 * construit une string avec toute les informations sur le joueur 
-	 * @return string constuite. 
+	 * ajoute un joueur (appelle manuel)
+	 * 
+	 * @param id
+	 *            du joueur ajouter
 	 */
-	public String afficherJoueur() {
-		String s = "Voici l'information sauvegarde de: "+ getPrenom()+" " +getNom() + "\n" ;
-		s +=  jeuDeCarte.afficherTout();
-		return s;
+	public void ajouter(TupleJoueur j) {
+		allJoueurs.put(j.getClefId(), j);
 	}
+
 	/**
-	 * construit une string avec toute les informations sur le joueur (specialiser pour aller au fichier texte)
-	 * @return string constuite. 
+	 * ajoute un joueur (construction suite a lecutre de fichier)
+	 * 
+	 * @param data
+	 *            information sur le joueur
 	 */
-	public String afficherFichierTexte(){
-		String s = "";
-		s += "\"" + getClefId() + "\";\"" + getPrenom() + " " + getNom() + "\";\"" + getNbCarte() + "\"";
-		s += jeuDeCarte.afficherFichierTexte() + "\n";
-		return s;
-	}
-	
+	/*
+	 * public void ajouterJoueur(String[] data){ TupleJoueur j = new
+	 * TupleJoueur(data); ListJoueur.add(j); }
+	 *//**
+	 * Retire un joueur de JoueurManager
+	 * 
+	 * @param j
+	 *            Objet Joueur a retirer
+	 * @return un boolean si l'operation a reusit
+	 */
+	/*
+	 * public boolean retirerJoueur(TupleJoueur j) { boolean confirm =
+	 * j.getJeuDeCarte().deleteCarte(j.getPrenom() + " " + j.getNom());
+	 * if(confirm) return ListJoueur.remove(j); else return false; }
+	 *//**
+	 * modifie un joueur particulier
+	 * 
+	 * @param id
+	 *            du joueur a modifier
+	 */
+	/*
+	 * public void modifierJoueur(String id){
+	 * 
+	 * ListJoueur.remove(find(id)); TupleJoueur j = new TupleJoueur(id);
+	 * ListJoueur.add(j);
+	 * 
+	 * }
+	 *//**
+	 * trouve la premiere occurance du joueur dans la structure de donnee de
+	 * JoueurManager.
+	 * 
+	 * @param id
+	 *            du joueur a trouver.
+	 * @return joueur trouver ou null si aucune occurance
+	 */
+	/*
+	 * public TupleJoueur find(String id) { for(TupleJoueur j : ListJoueur) {
+	 * if(id.equals(j.getClefId())) return j; } return null; }
+	 *//**
+	 * construit une string avec tout les joueurs dans la structure de donnee
+	 * de JoueurManager
+	 * 
+	 * @return String avec tout les joueurs
+	 */
+	/*
+	 * public String afficherTout() { String total = ""; for(TupleJoueur j :
+	 * ListJoueur) { total += "\n" + j.afficherJoueur(); } return total; }
+	 *//**
+	 * construit une string avec l'inforamtion sur un joueur en particulier
+	 * 
+	 * @param id
+	 *            du joueur dont le quel on droit trouver l'information
+	 * @return string avec l'information du joueur en question
+	 */
+	/*
+	 * public String afficherJoueur(String id) { TupleJoueur j = find(id); if(j
+	 * != null) return j.afficherJoueur(); else return null; }
+	 *//**
+	 * construit une string pour affichier l'information sur tout les joueurs
+	 * de la structure de donnee de joueur Manager specialiser pour le fichier
+	 * texte
+	 * 
+	 * @return String avec toute les informations des joueurs.
+	 */
+	/*
+	 * public String afficherInfoFichierTexte(){ String fichierComplet = ""; for
+	 * (TupleJoueur j: ListJoueur) { fichierComplet += j.afficherFichierTexte();
+	 * } return fichierComplet; }
+	 */
+
 }

@@ -7,12 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.odi.*;
 
 /**
  * La classe Interaction permet de gerer les entrees/sorties et les messages. 
@@ -58,7 +55,7 @@ public class Interaction {
 	 * @param nb La xeme carte
 	 * @return Un objet Carte
 	 */
-	public static Carte IOcarte(int nb)
+	public static TupleCarte IOcarte(int nb, String idJoueur)
 	{
 		String titre = null;
 		int annee = 0;
@@ -89,7 +86,7 @@ public class Interaction {
 			e.printStackTrace();
 		}
 		
-		return new Carte(titre, equipe, annee);
+		return new TupleCarte(titre, equipe, annee, idJoueur);
 		
 		
 	}
@@ -156,30 +153,11 @@ public class Interaction {
 	 * @throws IOException
 	 * @throws InventaireException 
 	 */
-	public static void IOSauvegarder(String fileContent) throws IOException, InventaireException{
-		/*
-		int nb = 1;
-	    	while(new File(System.getProperty("user.dir") + "\\src\\test" + nb + ".txt").exists())
-	    		nb++;
-			writer = new BufferedWriter(new OutputStreamWriter(
-			        new FileOutputStream(System.getProperty("user.dir") + "\\src\\test" + nb + ".txt"), "utf-8"));
-			writer.write(fileContent);
-			System.out.println("Le fichier " + System.getProperty("user.dir") + "\\src\\test" + nb + ".txt a ete cree avec succes.");
-	    writer.close();*/
+/*	public static void IOSauvegarder() throws IOException, InventaireException{
 		Transaction tr = Transaction.begin(ObjectStore.UPDATE);
-		try
-		{
-			//fait le check up 
-			if(true)
-			throw new InventaireException("oups");
-			tr.commit(ObjectStore.RETAIN_HOLLOW);
-		}
-		catch (InventaireException e)
-		{
-			tr.abort(ObjectStore.RETAIN_HOLLOW);
-			throw e;
-		}
-	}
+		//fait le check up 
+		tr.commit(ObjectStore.RETAIN_HOLLOW);
+	}*/
 	/**
 	 * La methode IOSauvegarderRapport permet de sauvegarder un rapport (option 5).
 	 * @param fileContent Le contenu du fichier.
