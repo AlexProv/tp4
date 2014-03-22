@@ -86,7 +86,7 @@ public class Interaction {
 		int annee = 0;
 		System.out.print("Entrez l'annee de parution de la carte " + idCarte + " : ");
 		try {
-			annee = Integer.parseInt(br.readLine());
+			annee = Integer.parseInt(br.readLine().replaceAll("\\s+", ""));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
