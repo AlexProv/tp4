@@ -119,7 +119,7 @@ public class Carte {
 		//Iterator in all cards to get all cards with the ID Joueur.
 		for (Map.Entry<Integer, TupleCarte> entry : allCartes.entrySet())
 		{
-		    if(entry.getValue().getIdJoueur() == idJoueur){
+		    if(entry.getValue().getIdJoueur().equals(idJoueur)){
 		    	System.out.println("Numero de carte : " + entry.getValue().getIdCarte());
 		    	System.out.println("Nom de carte : " + entry.getValue().getTitre());
 		    	System.out.println("Equipe de carte : " + entry.getValue().getEquipe());
