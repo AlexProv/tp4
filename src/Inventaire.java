@@ -61,7 +61,7 @@ public class Inventaire{
 	private static void ajouterJoueur() throws InventaireException{
 		String idJoueur = Interaction.IOCleIdentification();
 		int nbCartes = gestionInventaire.gestionJoueur.ajouter(idJoueur);
-		for (int i = 1; i == nbCartes; ++i) {
+		for (int i = 1; i <= nbCartes; ++i) {
 			gestionInventaire.gestionCarte.ajouter(idJoueur, i);
 		}
 	}
