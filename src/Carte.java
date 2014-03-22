@@ -127,5 +127,9 @@ public class Carte {
 		    }
 		}
 	}
+
+	public int maxCarte() {
+		return allCartes.size();
+	}
 	
 }
