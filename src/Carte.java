@@ -117,6 +117,15 @@ public class Carte {
 
 	public void afficher(String idJoueur) {
 		//Iterator in all cards to get all cards with the ID Joueur.
+		for (Map.Entry<Integer, TupleCarte> entry : allCartes.entrySet())
+		{
+		    if(entry.getValue().getIdJoueur() == idJoueur){
+		    	System.out.println("Numero de carte : " + entry.getValue().getIdCarte());
+		    	System.out.println("Nom de carte : " + entry.getValue().getTitre());
+		    	System.out.println("Equipe de carte : " + entry.getValue().getEquipe());
+		    	System.out.println("Annee de carte : " + entry.getValue().getAnnee());
+		    }
+		}
 	}
 	
 }
