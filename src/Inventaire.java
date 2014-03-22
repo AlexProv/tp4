@@ -53,7 +53,20 @@ public class Inventaire{
 //		Interaction.modifierJoueur();
 //		jm.modifierJoueur(s);
 //	}
-//	
+//
+	private static void miseAJour() throws InventaireException
+	{
+		String idJoueur = Interaction.IOCleIdentification();
+		
+		gestionInventaire.gestionJoueur.effacer(idJoueur);
+		gestionInventaire.gestionCarte.effacerCartes(idJoueur);
+		
+		int nbCartes = gestionInventaire.gestionJoueur.ajouter(idJoueur);
+		for (int i = 1; i <= nbCartes; ++i) {
+			gestionInventaire.gestionCarte.ajouter(idJoueur, i);
+		}
+	}
+	
 	/**
 	 * ajoute un joueur au joueur au programe.
 	 * @throws InventaireException 
