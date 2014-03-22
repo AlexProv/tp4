@@ -17,7 +17,7 @@ public class Carte {
 	 *
 	 */
 	
-	private Map<String, TupleCarte> allCartes;
+	private Map<Integer, TupleCarte> allCartes;
 	private int nbCartes;
 	
 	/**
@@ -30,12 +30,12 @@ public class Carte {
 		Transaction tr = Transaction.begin(ObjectStore.UPDATE);
 		try {
 			try {
-				allCartes = (Map<String, TupleCarte>) cx.getDatabase()
+				allCartes = (Map<Integer, TupleCarte>) cx.getDatabase()
 						.getRoot("allCartes");
 			} catch (DatabaseRootNotFoundException e) {
 				/* Creation de la racine */
 				cx.getDatabase().createRoot("allCartes",
-						allCartes = new OSHashMap<String, TupleCarte>(10));
+						allCartes = new OSHashMap<Integer, TupleCarte>(10));
 			}
 			/* Fin de la transaction avec retention des objets creux */
 			tr.commit(ObjectStore.RETAIN_HOLLOW);
@@ -48,15 +48,23 @@ public class Carte {
 	 * permet d'ajouter des cartes au jeuDeCartes (par appelle a la console pour les parametres de la cartes)
 	 * @param numero de la carte actuel
 	 */
-	public void ajouter(int k)
+	public void ajouter(TupleCarte tupleCarte)
 	{
 		if(nbCartes < 20){
-			TupleCarte c = Interaction.IOcarte(k);
-			listCartes.add(c);
+			allCartes.put(tupleCarte.getIdCarte(), tupleCarte);
 			nbCartes++;
 		}
 	}
+	
 	/**
+	 * Verifie si un livre existe
+	 */
+	public boolean existe(int idJoueur) {
+		return allCartes.get(idJoueur) != null;
+	}
+	
+	
+/*	*//**
 	 * permet d'ajouter des cartes au jeuDeCartes
 	 * @param Titre de la cartes
 	 * @param nom de l'equipe de la carte
@@ -67,26 +75,33 @@ public class Carte {
 		listCartes.add(c);
 		
 		nbCartes++;
-	}
+	}*/
 	
-	*//**
+	/**
 	 * permet de suprimer les carte demande une confirmation 
 	 * @param nom du joueur ou un suprime ces cartes
-	 *//*
-	public boolean deleteCarte(String nom)
+	 */
+	public boolean effacerCarte(String id)
 	{
-		afficherTout();
-		if(Interaction.confirmationDelete()){
-			listCartes.clear();
-			Interaction.deleteConfirme(nom);
-			return true;
+		List<Integer> listCartes = new ArrayList<Integer>();
+		for (Map.Entry<Integer, TupleCarte> entry : allCartes.entrySet())
+		{
+		    if(entry.getValue().getIdJoueur() == id){
+		    	int idCarte = entry.getKey();
+		    	listCartes.add(idCarte);
+		    }
 		}
-		else{
+		if(listCartes.isEmpty())
 			return false;
+		else{
+			for (Integer idCarte : listCartes) {
+				allCartes.remove(idCarte);
+			}
+			return true;
 		}
 	}
 	
-	*//**
+	/**
 	 * constuit une string avec tout les joueur et leur cartes. 
 	 * @return retourne tout les joueurs et toutes leurs cartes.
 	 *//*
@@ -99,5 +114,9 @@ public class Carte {
 		}
 		return s;
 	}*/
+
+	public void afficher(String idJoueur) {
+		//Iterator in all cards to get all cards with the ID Joueur.
+	}
 	
 }

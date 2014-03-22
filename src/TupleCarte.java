@@ -6,9 +6,8 @@
  *
  */
 public class TupleCarte{
-
 	private String titre, equipe, idJoueur;
-	private int annee;
+	private int annee, idCarte;
 	
 	/**
 	 * Le constructeur Carte permet de donner les informations sur une carte
@@ -17,12 +16,13 @@ public class TupleCarte{
 	 * @param annee L'annee de parution
 	 */
 	
-	public TupleCarte(String titre, String equipe, int annee, String idJoueur)
+	public TupleCarte(String idJoueur, int idCarte)
 	{
-		this.titre = titre;
-		this.equipe = equipe;
 		this.idJoueur = idJoueur;
-		this.annee = annee;
+		this.idCarte = idCarte;
+		this.equipe = Interaction.IOequipeCarte(idCarte);
+		this.titre = Interaction.IOtitreCarte(idCarte);
+		this.annee = Interaction.IOanneeCarte(idCarte);
 	
 	}
 	
@@ -34,6 +34,14 @@ public class TupleCarte{
 	}
 	public int getAnnee() {
 		return annee;
+	}
+
+	public String getIdJoueur() {
+		return idJoueur;
+	}
+
+	public int getIdCarte() {
+		return idCarte;
 	}
 	/**
 	 * La methode afficher permet d'afficher les informations sur une carte comme dans un rapport

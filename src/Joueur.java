@@ -50,6 +50,21 @@ public class Joueur {
 	public void ajouter(TupleJoueur j) {
 		allJoueurs.put(j.getClefId(), j);
 	}
+	
+	public void afficher(String idJoueur){
+		TupleJoueur tj = allJoueurs.get(idJoueur);
+		System.out.println("Clef joueur :" + tj.getClefId());
+		System.out.println("Nom joueur : " + tj.getPrenom() + " " + tj.getNom());
+		System.out.println("Nombre de cartes : " + tj.getNbCarte());
+	}
+
+	public int effacer(String idJoueur) {
+		Object o = allJoueurs.remove(idJoueur);
+	    if (o == null)
+	        return 0;
+	    else
+	        return 1;
+	}
 
 	/**
 	 * ajoute un joueur (construction suite a lecutre de fichier)

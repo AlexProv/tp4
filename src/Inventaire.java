@@ -27,9 +27,9 @@ public class Inventaire{
 		int i = Integer.parseInt(s);
 		switch(i){ 
 			case 1 : Interaction.IOmenu(i); ajouterJoueur(); break;
-//			case 2 : Interaction.IOmenu(i); afficherJoueur(); break;
+			case 2 : Interaction.IOmenu(i); afficherJoueur(); break;
 //			case 3 : Interaction.IOmenu(i); miseAJour(); break;
-//			case 4 : Interaction.IOmenu(i); effaceJoueur(); break;
+			case 4 : Interaction.IOmenu(i); effaceJoueur(); break;
 //			case 5 : Interaction.IOmenu(i); rapport(); break;
 //			case 6 : Interaction.IOmenu(i); sauvegarderFichier(); break;
 			case 0 : Interaction.IOmenu(i); Interaction.merci(); gestionInventaire.fermer(); System.exit(0); break;
@@ -59,34 +59,32 @@ public class Inventaire{
 	 * @throws InventaireException 
 	 */
 	private static void ajouterJoueur() throws InventaireException{
-		gestionInventaire.gestionJoueur.ajouter(Interaction.IOCleIdentification());
-//		jm.ajouterJoueur(Interaction.IOCleIdentification());
+		String idJoueur = Interaction.IOCleIdentification();
+		int nbCartes = gestionInventaire.gestionJoueur.ajouter(idJoueur);
+		for (int i = 1; i == nbCartes; ++i) {
+			gestionInventaire.gestionCarte.ajouter(idJoueur, i);
+		}
 	}
 	
 	/**
 	 * affiche les inforamtions sur un joueur
 	 */
-//	private static void afficherJoueur() {
-//		String info = jm.afficherJoueur(Interaction.IOCleIdentification());
-//		if(info == null)
-//			Interaction.cleIdentification();
-//		else
-//			System.out.println(info);
-//	}
-//	
-//	/**
-//	 * efface un joueur du programe
-//	 */
-//	private static void effaceJoueur(){
-//		String id = Interaction.IOCleIdentification();
-//		if(jm.find(id)!= null){
-//			System.out.println(jm.afficherJoueur(id));
-//			jm.retirerJoueur(jm.find(id));
-//		}else{
-//			effaceJoueur();
-//		}
-//	}
-//	
+	private static void afficherJoueur() {
+		String idJoueur = Interaction.IOCleIdentification();
+		gestionInventaire.gestionJoueur.afficherJoueur(idJoueur);
+		gestionInventaire.gestionCarte.afficherCartesJoueur(idJoueur);
+	}
+	
+	/**
+	 * efface un joueur du programe
+	 * @throws InventaireException 
+	 */
+	private static void effaceJoueur() throws InventaireException{
+		String id = Interaction.IOCleIdentification();
+		gestionInventaire.gestionJoueur.effacer(id);
+		gestionInventaire.gestionCarte.effacerCartes(id);
+	}
+	
 //	/**
 //	 * lit un fichier et remplie le joueur manager. 
 //	 */

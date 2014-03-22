@@ -6,7 +6,7 @@ public class TupleJoueur implements Comparable<TupleJoueur>{
 	private String nom;
 	private String prenom;
 	private int nbCarte;
-	
+
 	public int getNbCarte() {
 		return nbCarte;
 	}
@@ -26,7 +26,7 @@ public class TupleJoueur implements Comparable<TupleJoueur>{
 	 */
 	public TupleJoueur(String id)
 	{
-//		jeuDeCarte = new JeuDeCarte();
+		
 		this.clefId = id;
 		
 		String nomComplet = Interaction.IOJoueurNom();
@@ -34,9 +34,6 @@ public class TupleJoueur implements Comparable<TupleJoueur>{
 		this.prenom = nomArray[0];
 		this.nom = nomArray[1];
 		this.nbCarte = Interaction.IOnbCartes();
-//		for(int k = 1; k<=i;k++){
-//			jeuDeCarte.ajouter(k);
-//		}
 	}
 	
 /*	*//**

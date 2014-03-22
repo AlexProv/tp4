@@ -1,2 +1,1 @@
--inplace -dest . -pc bin\TupleJoueur.class
-          
+-inplace -dest . -pc bin\TupleCarte.class bin\TupleJoueur.class

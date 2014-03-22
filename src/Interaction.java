@@ -55,41 +55,45 @@ public class Interaction {
 	 * @param nb La xeme carte
 	 * @return Un objet Carte
 	 */
-	public static TupleCarte IOcarte(int nb, String idJoueur)
+	public static String IOtitreCarte(int idCarte)
 	{
 		String titre = null;
-		int annee = 0;
-		String equipe = null;
 		try {
 			while(titre == null || titre.length() > 50){
-				System.out.print("Entrez le titre de la carte " + nb + " : ");
+				System.out.print("Entrez le titre de la carte " + idCarte + " : ");
 				titre = br.readLine();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		return titre;
+	}
+	
+	public static String IOequipeCarte(int idCarte){
+		String equipe = null;
 		try {
 			while(equipe == null || equipe.length() > 30){
-				System.out.print("Entrez l'equipe de la carte " + nb + " : ");
+				System.out.print("Entrez l'equipe de la carte " + idCarte + " : ");
 				equipe = br.readLine();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return equipe;
+	}
 	
-		System.out.print("Entrez l'annee de parution de la carte " + nb + " : ");
+	public static int IOanneeCarte(int idCarte){
+		int annee = 0;
+		System.out.print("Entrez l'annee de parution de la carte " + idCarte + " : ");
 		try {
 			annee = Integer.parseInt(br.readLine());
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		return new TupleCarte(titre, equipe, annee, idJoueur);
-		
-		
+		return annee;
 	}
+	
 	/**
 	 * La methode IOMenu permet d'afficher le menu.
 	 */
