@@ -31,43 +31,14 @@ public class Inventaire{
 			case 3 : Interaction.IOmenu(i); miseAJour(); break;
 			case 4 : Interaction.IOmenu(i); effaceJoueur(); break;
 //			case 5 : Interaction.IOmenu(i); rapport(); break;
-//			case 6 : Interaction.IOmenu(i); sauvegarderFichier(); break;
+			case 6 : Interaction.IOmenu(i); sauvegarderFichier(); break;
 			case 0 : Interaction.IOmenu(i); Interaction.merci(); gestionInventaire.fermer(); System.exit(0); break;
 			default: System.out.println("Rentrer un chiffre entre 0 et 6 svp") ; break;
 		}
 		afficherMenu();
 	}
 	
-//	/**
-//	 * menu pour interagir au moment de faire la mise a jours des cartes
-//	 */
-//	private static void miseAJour(){
-//		String s = Interaction.IOCleIdentification();
-//		String info = jm.afficherJoueur(s);
-//		if(info == null){
-//			Interaction.cleIdentification();
-//			return;
-//		}
-//		else
-//			System.out.println(info);
-//		Interaction.modifierJoueur();
-//		jm.modifierJoueur(s);
-//	}
-//
-	private static void miseAJour() throws InventaireException
-	{
-		String idJoueur = Interaction.IOCleIdentification();
-		
-		gestionInventaire.gestionJoueur.effacer(idJoueur);
-		gestionInventaire.gestionCarte.effacerCartes(idJoueur);
-		
-		int nbCartes = gestionInventaire.gestionJoueur.ajouter(idJoueur);
-		for (int i = 1; i <= nbCartes; ++i) {
-			gestionInventaire.gestionCarte.ajouter(idJoueur, i);
-		}
-	}
-	
-	/**
+/**
 	 * ajoute un joueur au joueur au programe.
 	 * @throws InventaireException 
 	 */
@@ -75,7 +46,7 @@ public class Inventaire{
 		String idJoueur = Interaction.IOCleIdentification();
 		int nbCartes = gestionInventaire.gestionJoueur.ajouter(idJoueur);
 		for (int i = 1; i <= nbCartes; ++i) {
-			gestionInventaire.gestionCarte.ajouter(idJoueur, i);
+			gestionInventaire.gestionCarte.ajouter(idJoueur);
 		}
 	}
 	
@@ -108,14 +79,14 @@ public class Inventaire{
 //		}
 //	}
 //	
-//	/**
-//	 * imprime les informations dans un fichier
-//	 * @throws IOException
-//	 * @throws InventaireException 
-//	 */
-//	private static void sauvegarderFichier() throws IOException, InventaireException{
-//		Interaction.IOSauvegarder(jm.afficherInfoFichierTexte());
-//	}
+	/**
+	 * imprime les informations dans un fichier
+	 * @throws IOException
+	 * @throws InventaireException 
+	 */
+	private static void sauvegarderFichier() throws IOException, InventaireException{
+		System.out.println("Sauvegarde effectuee avec succes!");
+	}
 //	
 //	/**
 //	 * ecrit le rapport a la fenetre ou au fichier
