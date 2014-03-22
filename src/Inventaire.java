@@ -30,7 +30,7 @@ public class Inventaire{
 			case 2 : Interaction.IOmenu(i); afficherJoueur(); break;
 			case 3 : Interaction.IOmenu(i); miseAJour(); break;
 			case 4 : Interaction.IOmenu(i); effaceJoueur(); break;
-//			case 5 : Interaction.IOmenu(i); rapport(); break;
+			case 5 : Interaction.IOmenu(i); rapport(); break;
 			case 6 : Interaction.IOmenu(i); sauvegarderFichier(); break;
 			case 0 : Interaction.IOmenu(i); Interaction.merci(); gestionInventaire.fermer(); System.exit(0); break;
 			default: System.out.println("Rentrer un chiffre entre 0 et 6 svp") ; break;
@@ -87,6 +87,20 @@ public class Inventaire{
 	private static void sauvegarderFichier() throws IOException, InventaireException{
 		System.out.println("Sauvegarde effectuee avec succes!");
 	}
+	
+	private static void miseAJour() throws InventaireException
+	{
+		String idJoueur = Interaction.IOCleIdentification();
+		
+		gestionInventaire.gestionJoueur.effacer(idJoueur);
+		gestionInventaire.gestionCarte.effacerCartes(idJoueur);
+		
+		int nbCartes = gestionInventaire.gestionJoueur.ajouter(idJoueur);
+		for (int i = 1; i <= nbCartes; ++i) {
+			gestionInventaire.gestionCarte.ajouter(idJoueur);
+		}
+	}
+
 //	
 //	/**
 //	 * ecrit le rapport a la fenetre ou au fichier
