@@ -202,6 +202,8 @@ public class Interaction {
 		return s;
 	}
 	
+	
+	
 	/**
 	 * La methode IOInitialisation permet d'aller chercher le fichier test1 dans le dossier src
 	 * @return Une liste de tableau String de tous les joueurs
