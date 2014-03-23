@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.odi.DatabaseRootNotFoundException;
@@ -64,6 +66,15 @@ public class Joueur {
 	        return 0;
 	    else
 	        return 1;
+	}
+
+	public List<String> listId() {
+		List<String> list = new ArrayList<String>();
+		for (Map.Entry<String, TupleJoueur> entry : allJoueurs.entrySet())
+		{
+			list.add(entry.getKey());
+		}
+		return list;
 	}
 
 	/**

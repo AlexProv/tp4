@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class Inventaire{
@@ -9,7 +10,7 @@ public class Inventaire{
 	private static GestionInventaire gestionInventaire;
 	/**
 	 * affiche le menu console
-	 * @throws IOException si il y a une erreure en lecture de la ligne
+	 * @throws IOException si il y a une erreur en lecture de la ligne
 	 * @throws InventaireException 
 	 * @throws SQLException 
 	 */
@@ -31,7 +32,7 @@ public class Inventaire{
 			case 2 : Interaction.IOmenu(i); afficherJoueur(); break;
 			case 3 : Interaction.IOmenu(i); miseAJour(); break;
 			case 4 : Interaction.IOmenu(i); effaceJoueur(); break;
-//			case 5 : Interaction.IOmenu(i); rapport(); break;
+			case 5 : Interaction.IOmenu(i); rapport(); break;
 			case 6 : Interaction.IOmenu(i); sauvegarderFichier(); break;
 			case 0 : Interaction.IOmenu(i); Interaction.merci(); gestionInventaire.fermer(); System.exit(0); break;
 			default: System.out.println("Rentrer un chiffre entre 0 et 6 svp") ; break;
@@ -103,18 +104,23 @@ public class Inventaire{
 	}
 	
 
-//	
-//	/**
-//	 * ecrit le rapport a la fenetre ou au fichier
-//	 */
-//	private static void rapport(){
-//		String reponse = Interaction.IOtypeRapport();
-//		String contenuRapport = jm.afficherTout();
-//		if(reponse == "E")
-//			System.out.print(contenuRapport);
-//		else if(reponse == "F")
-//			Interaction.IOSauvegarderRapport(contenuRapport);
-//	}
+	
+	/**
+	 * ecrit le rapport a la fenetre ou au fichier
+	 */
+	private static void rapport(){
+		//String reponse = Interaction.IOtypeRapport();
+		List<String> listId = gestionInventaire.gestionJoueur.listId();
+		for (int i = 0; i < listId.size(); i++) {
+			gestionInventaire.gestionJoueur.afficherJoueur(listId.get(i));
+			gestionInventaire.gestionCarte.afficherCartesJoueur(listId.get(i));
+		}
+/*		String contenuRapport = jm.afficherTout();
+		if(reponse == "E")
+			System.out.print(contenuRapport);
+		else if(reponse == "F")
+			Interaction.IOSauvegarderRapport(contenuRapport);*/
+	}
 	
 	/**
 	 * fonction main commance le programe

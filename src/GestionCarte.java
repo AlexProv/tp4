@@ -34,17 +34,8 @@ private Carte carte;
 	
 	public void effacerCartes(String idJoueur) throws InventaireException{
 		Transaction tr = Transaction.begin(ObjectStore.UPDATE);
-		try {
-
-			/* Suppression du joueur. */
-			boolean effacer = carte.effacerCarte(idJoueur);
-			if (!effacer)
-				throw new InventaireException("Carte du joueur " + idJoueur + " inexistant");
-			else
-				tr.commit(ObjectStore.RETAIN_HOLLOW);
-		} catch (InventaireException e) {
-			tr.abort(ObjectStore.RETAIN_HOLLOW);
-			throw e;
-		}
+		/* Suppression du joueur. */
+		boolean effacer = carte.effacerCarte(idJoueur);
+		tr.commit(ObjectStore.RETAIN_HOLLOW);
 	}
 }

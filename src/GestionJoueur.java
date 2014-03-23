@@ -1,3 +1,5 @@
+import java.util.List;
+
 import com.odi.ObjectStore;
 import com.odi.Transaction;
 
@@ -53,6 +55,13 @@ public class GestionJoueur {
 			tr.abort(ObjectStore.RETAIN_HOLLOW);
 			throw e;
 		}
+	}
+
+	public List<String> listId() {
+		Transaction tr = Transaction.begin(ObjectStore.READONLY);
+		List<String> list = joueur.listId();
+		tr.commit(ObjectStore.RETAIN_HOLLOW);
+		return list;
 	}
 
 }
