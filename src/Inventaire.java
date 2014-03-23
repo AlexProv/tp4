@@ -100,6 +100,7 @@ public class Inventaire{
 			gestionInventaire.gestionCarte.ajouter(idJoueur);
 		}
 	}
+	
 
 //	
 //	/**

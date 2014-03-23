@@ -81,6 +81,7 @@ public class Carte {
 	 * permet de suprimer les carte demande une confirmation 
 	 * @param nom du joueur ou un suprime ces cartes
 	 */
+	
 	public boolean effacerCarte(String id)
 	{
 		List<Integer> listCartes = new ArrayList<Integer>();
