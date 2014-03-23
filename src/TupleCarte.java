@@ -1,8 +1,8 @@
 
 /**
- * La classe Carte 
+ * La classe TupleCarte 
  * 
- * @author Mathieu Lavoie, Vincent Gagnon et Alex Provencher
+ * @author Mathieu Lavoie, Alex Provencher et Vincent Gagnon
  *
  */
 public class TupleCarte{
@@ -10,10 +10,10 @@ public class TupleCarte{
 	private int annee, idCarte;
 	
 	/**
-	 * Le constructeur Carte permet de donner les informations sur une carte
-	 * @param titre Le titre de la carte
-	 * @param equipe Le nom de l'equipe du joueur de la carte
-	 * @param annee L'annee de parution
+	 * Le constructeur TupleCarte a toutes les informations sur une carte
+	 * 
+	 * @param idJoueur
+	 * @param idCarte
 	 */
 	
 	public TupleCarte(String idJoueur, int idCarte)
@@ -35,23 +35,11 @@ public class TupleCarte{
 	public int getAnnee() {
 		return annee;
 	}
-
 	public String getIdJoueur() {
 		return idJoueur;
 	}
-
 	public int getIdCarte() {
 		return idCarte;
-	}
-	/**
-	 * La methode afficher permet d'afficher les informations sur une carte comme dans un rapport
-	 * @return Les donnees de la carte
-	 */
-	public String afficher() {
-		String s = "\t Titre : " + titre + "\n";
-		s += "\t Equipe : " + equipe + "\n";
-		s += "\t Annee de parution : " + annee + "\n";
-		return s;
 	}
 
 }

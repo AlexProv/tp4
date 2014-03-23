@@ -7,12 +7,23 @@ import com.odi.ObjectStore;
 import com.odi.Transaction;
 import com.odi.util.OSHashMap;
 
+/**
+ * La classe Joueur est la classe qui permet de faire les actions sur TupleJoueur
+ * 
+ * @author Mathieu Lavoie, Alex Provencher et Vincent Gagnon
+ *
+ */
+
 public class Joueur {
-	// private SortedSet<Joueur> ListJoueur;
+	
 	private Map<String, TupleJoueur> allJoueurs;
 
 	/**
-	 * Initialize le joueur manager
+	 * Le constructeur de Joueur permet de demarrer une transaction sur la base de
+	 * donnees et prend toutes les donnees de ODB
+	 * 
+	 * @param cx La connexion au fichier ODB
+	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
 	public Joueur(Connexion cx) throws Exception {
@@ -37,22 +48,30 @@ public class Joueur {
 	}
 
 	/**
-	 * Verifie si un livre existe
+	 * Verifie si un joueur existe
+	 * 
+	 * @param idJoueur
+	 * @return s'il existe
 	 */
 	public boolean existe(String idJoueur) {
 		return allJoueurs.get(idJoueur) != null;
 	}
 
 	/**
-	 * ajoute un joueur (appelle manuel)
-	 * 
-	 * @param id
-	 *            du joueur ajouter
+	 * Ajoute un joueur
+	 *
+	 * @param j un TupleJoueur
 	 */
+	
 	public void ajouter(TupleJoueur j) {
 		allJoueurs.put(j.getClefId(), j);
 	}
 	
+	/**
+	 * Afficher un joueur
+	 * 
+	 * @param idJoueur
+	 */
 	public void afficher(String idJoueur){
 		TupleJoueur tj = allJoueurs.get(idJoueur);
 		System.out.println("Clef joueur :" + tj.getClefId());
@@ -60,6 +79,13 @@ public class Joueur {
 		System.out.println("Nombre de cartes : " + tj.getNbCarte());
 	}
 
+	/**
+	 * 
+	 * Efface un joueur
+	 * 
+	 * @param idJoueur
+	 * @return 1 si c'est effacer ou 0 si ca n'a pas fonctionne
+	 */
 	public int effacer(String idJoueur) {
 		Object o = allJoueurs.remove(idJoueur);
 	    if (o == null)
@@ -68,6 +94,11 @@ public class Joueur {
 	        return 1;
 	}
 
+	/**
+	 * Va chercher la liste des ID des joueurs
+	 * 
+	 * @return Une liste de ceci
+	 */
 	public List<String> listId() {
 		List<String> list = new ArrayList<String>();
 		for (Map.Entry<String, TupleJoueur> entry : allJoueurs.entrySet())
@@ -76,81 +107,5 @@ public class Joueur {
 		}
 		return list;
 	}
-
-	/**
-	 * ajoute un joueur (construction suite a lecutre de fichier)
-	 * 
-	 * @param data
-	 *            information sur le joueur
-	 */
-	/*
-	 * public void ajouterJoueur(String[] data){ TupleJoueur j = new
-	 * TupleJoueur(data); ListJoueur.add(j); }
-	 *//**
-	 * Retire un joueur de JoueurManager
-	 * 
-	 * @param j
-	 *            Objet Joueur a retirer
-	 * @return un boolean si l'operation a reusit
-	 */
-	/*
-	 * public boolean retirerJoueur(TupleJoueur j) { boolean confirm =
-	 * j.getJeuDeCarte().deleteCarte(j.getPrenom() + " " + j.getNom());
-	 * if(confirm) return ListJoueur.remove(j); else return false; }
-	 *//**
-	 * modifie un joueur particulier
-	 * 
-	 * @param id
-	 *            du joueur a modifier
-	 */
-	/*
-	 * public void modifierJoueur(String id){
-	 * 
-	 * ListJoueur.remove(find(id)); TupleJoueur j = new TupleJoueur(id);
-	 * ListJoueur.add(j);
-	 * 
-	 * }
-	 *//**
-	 * trouve la premiere occurance du joueur dans la structure de donnee de
-	 * JoueurManager.
-	 * 
-	 * @param id
-	 *            du joueur a trouver.
-	 * @return joueur trouver ou null si aucune occurance
-	 */
-	/*
-	 * public TupleJoueur find(String id) { for(TupleJoueur j : ListJoueur) {
-	 * if(id.equals(j.getClefId())) return j; } return null; }
-	 *//**
-	 * construit une string avec tout les joueurs dans la structure de donnee
-	 * de JoueurManager
-	 * 
-	 * @return String avec tout les joueurs
-	 */
-	/*
-	 * public String afficherTout() { String total = ""; for(TupleJoueur j :
-	 * ListJoueur) { total += "\n" + j.afficherJoueur(); } return total; }
-	 *//**
-	 * construit une string avec l'inforamtion sur un joueur en particulier
-	 * 
-	 * @param id
-	 *            du joueur dont le quel on droit trouver l'information
-	 * @return string avec l'information du joueur en question
-	 */
-	/*
-	 * public String afficherJoueur(String id) { TupleJoueur j = find(id); if(j
-	 * != null) return j.afficherJoueur(); else return null; }
-	 *//**
-	 * construit une string pour affichier l'information sur tout les joueurs
-	 * de la structure de donnee de joueur Manager specialiser pour le fichier
-	 * texte
-	 * 
-	 * @return String avec toute les informations des joueurs.
-	 */
-	/*
-	 * public String afficherInfoFichierTexte(){ String fichierComplet = ""; for
-	 * (TupleJoueur j: ListJoueur) { fichierComplet += j.afficherFichierTexte();
-	 * } return fichierComplet; }
-	 */
 
 }

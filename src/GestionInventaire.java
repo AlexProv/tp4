@@ -1,5 +1,12 @@
 import java.sql.SQLException;
 
+/**
+ * La classe GestionInventaire permet de controler tous les options du programme
+ * 
+ * @author Mathieu Lavoie, Alex Provencher et Vincent Gagnon
+ *
+ */
+
 public class GestionInventaire {
 	public Connexion cx;
 	public GestionJoueur gestionJoueur;
@@ -8,16 +15,11 @@ public class GestionInventaire {
 	public Carte carte;
 
 	/**
-	 * Ouvre une connexion avec la BD relationnelle et alloue les gestionnaires
-	 * de transactions et de tables.
+	 * Le constructeur de GestionInventaire sert creer les classes pour
+	 * les reutiliser dans tous les operations
 	 * 
-	 * <pre>
-	 * 
-	 * @param serveur SQL
-	 * @param bd nom de la bade de données
-	 * @param user user id pour établir une connexion avec le serveur SQL
-	 * @param password mot de passe pour le user id
-	 * </pre>
+	 * @param bd le fichier de la BD
+	 * @throws Exception
 	 */
 	public GestionInventaire(String bd) throws Exception {
 		// allocation des objets pour le traitement des transactions
@@ -28,6 +30,11 @@ public class GestionInventaire {
 		gestionCarte = new GestionCarte(carte);
 	}
 
+	/**
+	 * Fermer la connexion
+	 * 
+	 * @throws SQLException
+	 */
 	public void fermer() throws SQLException {
 		// fermeture de la connexion
 		cx.fermer();

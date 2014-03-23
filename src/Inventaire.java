@@ -40,7 +40,7 @@ public class Inventaire{
 		afficherMenu();
 	}
 	
-/**
+	/**
 	 * ajoute un joueur au joueur au programe.
 	 * @throws InventaireException 
 	 */
@@ -71,16 +71,7 @@ public class Inventaire{
 		gestionInventaire.gestionCarte.effacerCartes(id);
 	}
 	
-//	/**
-//	 * lit un fichier et remplie le joueur manager. 
-//	 */
-//	private static void lireFichier(){
-//		List<String[]> listeJoueurs = Interaction.IOInitialisation();
-//		for (String[] contenu : listeJoueurs) {
-//			jm.ajouterJoueur(contenu);
-//		}
-//	}
-//	
+	
 	/**
 	 * imprime les informations dans un fichier
 	 * @throws IOException
@@ -90,6 +81,10 @@ public class Inventaire{
 		System.out.println("Sauvegarde effectuee avec succes!");
 	}
 	
+	/**
+	 * met a jour les informations du joueur et les cartes en les supprimant et les recreant
+	 * @throws InventaireException
+	 */
 	private static void miseAJour() throws InventaireException
 	{
 		String idJoueur = Interaction.IOCleIdentification();
@@ -106,25 +101,19 @@ public class Inventaire{
 
 	
 	/**
-	 * ecrit le rapport a la fenetre ou au fichier
+	 * ecrit le rapport a la fenetre
 	 */
 	private static void rapport(){
-		//String reponse = Interaction.IOtypeRapport();
 		List<String> listId = gestionInventaire.gestionJoueur.listId();
 		for (int i = 0; i < listId.size(); i++) {
 			gestionInventaire.gestionJoueur.afficherJoueur(listId.get(i));
 			gestionInventaire.gestionCarte.afficherCartesJoueur(listId.get(i));
 		}
-/*		String contenuRapport = jm.afficherTout();
-		if(reponse == "E")
-			System.out.print(contenuRapport);
-		else if(reponse == "F")
-			Interaction.IOSauvegarderRapport(contenuRapport);*/
 	}
 	
 	/**
-	 * fonction main commance le programe
-	 * @param args pour lancer le programe, on ne s'en sert pas.
+	 * fonction main commence le programe
+	 * @param args pour lancer le programme, on prend le fichier ODB de la BD
 	 * @throws IOException 
 	 * @throws InventaireException 
 	 * @throws SQLException 

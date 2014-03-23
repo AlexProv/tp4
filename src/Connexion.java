@@ -1,11 +1,11 @@
 import com.odi.*;
 
 /**
- * Connexion.java
  * 
- * Marc Frappier Université de Sherbrooke
+ * La classe Connexion permet de se connecter a la BDOO
  * 
- * Ouvre et ferme une connexion pour la gestion de la bibliotheque
+ * @author Mathieu Lavoie, Alex Provencher et Vincent Gagnon
+ *
  */
 public class Connexion {
 
@@ -14,7 +14,11 @@ public class Connexion {
 	private Session session;
 
 	/**
-	 * ouverture d'une connexion
+	 * Constructeur de la connexion pour debuter la session et creer la BD s'il n'y a rien
+	 * de fait
+	 * 
+	 * @param dbName nom du fichier de la BDOO
+	 * @throws InventaireException
 	 */
 	public Connexion(String dbName) throws InventaireException {
 
@@ -35,16 +39,14 @@ public class Connexion {
 			throw new InventaireException("Impossible d'ouvrir la connexion");
 		}
 	}
-
-	/**
-	 * retourne la dataBase de la connexion
-	 */
+	
 	public Database getDatabase() {
 		return db;
 	}
 
 	/**
-	 * fermeture d'une connexion
+	 * Ferme la connexion
+	 * 
 	 */
 	public void fermer() {
 		try {

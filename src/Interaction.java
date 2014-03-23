@@ -1,13 +1,8 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +14,6 @@ import java.util.List;
  */
 public class Interaction {
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	private static Writer writer;
 	
 	/**
 	 * La méthode IOMenu permet d'afficher le choix selectionne de l'utilisateur
@@ -50,10 +44,12 @@ public class Interaction {
 		}
 	}
 	
+
 	/**
-	 * La methode IOCarte te permet de donner les informations sur les cartes (titre, equipe, annee)
-	 * @param nb La xeme carte
-	 * @return Un objet Carte
+	 * Permet d'obtenir le titre de la carte
+	 * 
+	 * @param idCarte
+	 * @return le titre de la carte
 	 */
 	public static String IOtitreCarte(int idCarte)
 	{
@@ -69,6 +65,13 @@ public class Interaction {
 		return titre;
 	}
 	
+	/**
+	 * Permet d'obtenir l'equipe de la carte
+	 * 
+	 * @param idCarte
+	 * @return l'equipe de la carte
+	 */
+	
 	public static String IOequipeCarte(int idCarte){
 		String equipe = null;
 		try {
@@ -81,6 +84,13 @@ public class Interaction {
 		}
 		return equipe;
 	}
+	
+	/**
+	 * Permet d'obtenir l'annee de la carte
+	 * 
+	 * @param idCarte
+	 * @return l'annee de la carte
+	 */
 	
 	public static int IOanneeCarte(int idCarte){
 		int annee = 0;
@@ -152,40 +162,6 @@ public class Interaction {
 	}
 	
 	/**
-	 * La methode IOSauvegarder permet de sauvegarder un CSV
-	 * @param fileContent le contenu du fichier
-	 * @throws IOException
-	 * @throws InventaireException 
-	 */
-/*	public static void IOSauvegarder() throws IOException, InventaireException{
-		Transaction tr = Transaction.begin(ObjectStore.UPDATE);
-		//fait le check up 
-		tr.commit(ObjectStore.RETAIN_HOLLOW);
-	}*/
-	/**
-	 * La methode IOSauvegarderRapport permet de sauvegarder un rapport (option 5).
-	 * @param fileContent Le contenu du fichier.
-	 */
-	public static void IOSauvegarderRapport(String fileContent){
-		System.out.println("Entrez le nom du fichier : ");
-		String path = "";
-		try {
-			path = br.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path)));
-			writer.write(fileContent);
-			writer.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	/**
 	 * La methode IOCleIdentification permet d'aller chercher la cle d'identification
 	 * @return La cle
 	 */
@@ -232,50 +208,11 @@ public class Interaction {
 		}
 		return listeJoueurs;
 	}
-	/**
-	 * La methode IOtyperapport permet de savoir si c'est affiche sur un ecran ou un fichier.
-	 * @return E ou F
-	 */
-	public static String IOtypeRapport(){
-		String typeRapport = "";
-		System.out.print("\nVoulez-vous creer la liste des joueurs dans un fichier ou l'afficher sur l'ecran ? (F/E):");
-		try {
-			typeRapport = br.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		typeRapport	= typeRapport.toUpperCase();
-		return typeRapport;
-	}
 	
 	/**
-	 * La methode confirmationDelete demande si la personne veut vraiment effacer le joueur.
-	 * @return Si c'est accepte
+	 * Message de fin du programme
 	 */
-	public static boolean confirmationDelete(){
-		System.out.println("Voulez vous effacer l'information de ce joueur ? (O/N)");
-		try {
-			if( br.readLine().toUpperCase().equals("O")){
-				return true;
-			}		
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
-	public static void deleteConfirme(String nom){
-		System.out.println("L'information du joueur "+ nom +" a ete efface du systeme.");
-	}
 	public static void merci(){
 		System.out.println("Merci d'avoir utilise le systeme de gestion d'inventaire de cartes."); 
-	}
-	
-	public static void cleIdentification(){
-		System.out.println("La cle d'identification du joueur n'existe pas.");
-	}
-
-	public static void modifierJoueur() {
-		System.out.println("Maintenant entrez les donnees a modifier : ");
 	}
 }

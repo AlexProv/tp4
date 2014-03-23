@@ -13,7 +13,7 @@ public class Carte {
 	/**
 	 * La classe Carte 
 	 * 
-	 * @author Mathieu Lavoie, Vincent Gagnon et Alex Provencher
+	 * @author Mathieu Lavoie, Alex Provencher et Vincent Gagnon
 	 *
 	 */
 	
@@ -21,7 +21,8 @@ public class Carte {
 	private int nbCartes;
 	
 	/**
-	 * Initialize les valeur pour partire un jeu de carte
+	 * Initialise la connexion pour les cartes en allant chercher les donnees
+	 * du fichier ODB. S'il n'y a pas de donnees, creer le fichier ODB
 	 */
 	@SuppressWarnings("unchecked")
 	public Carte(Connexion cx)
@@ -45,8 +46,8 @@ public class Carte {
 	}
 	
 	/**
-	 * permet d'ajouter des cartes au jeuDeCartes (par appelle a la console pour les parametres de la cartes)
-	 * @param numero de la carte actuel
+	 * permet d'ajouter un carte a la map de Cartes
+	 * @param tupleCarte
 	 */
 	public void ajouter(TupleCarte tupleCarte)
 	{
@@ -57,29 +58,17 @@ public class Carte {
 	}
 	
 	/**
-	 * Verifie si un livre existe
+	 * Verifie si la carte existe
+	 * @param idJoueur la 
+	 * @return s'il existe
 	 */
 	public boolean existe(int idJoueur) {
 		return allCartes.get(idJoueur) != null;
 	}
 	
-	
-/*	*//**
-	 * permet d'ajouter des cartes au jeuDeCartes
-	 * @param Titre de la cartes
-	 * @param nom de l'equipe de la carte
-	 * @param annee de la carte
-	 *//*
-	public void ajouter(String titre, String equipe, int annee){
-		TupleCarte c = new TupleCarte(titre, equipe, annee);
-		listCartes.add(c);
-		
-		nbCartes++;
-	}*/
-	
 	/**
-	 * permet de suprimer les carte demande une confirmation 
-	 * @param nom du joueur ou un suprime ces cartes
+	 * permet de supprimer les cartes associées au joueur
+	 * @param id id du joueur
 	 */
 	
 	public boolean effacerCarte(String id)
@@ -101,23 +90,13 @@ public class Carte {
 			return true;
 		}
 	}
-	
-	/**
-	 * constuit une string avec tout les joueur et leur cartes. 
-	 * @return retourne tout les joueurs et toutes leurs cartes.
-	 *//*
-	public String afficherTout() {
-		String s = "Le joueur a "+ nbCartes +" cartes enregistre\n";
-		for(TupleCarte c : listCartes)
-		{
-			s += "Carte " + (listCartes.indexOf(c)+1)   + " : \n";
-			s += c.afficher();
-		}
-		return s;
-	}*/
 
+	/**
+	 * Afficher en console les donnees des cartes par l'ID du joueur
+	 * 
+	 * @param idJoueur l'ID du joueur
+	 */
 	public void afficher(String idJoueur) {
-		//Iterator in all cards to get all cards with the ID Joueur.
 		for (Map.Entry<Integer, TupleCarte> entry : allCartes.entrySet())
 		{
 		    if(entry.getValue().getIdJoueur().equals(idJoueur)){
@@ -129,6 +108,11 @@ public class Carte {
 		}
 	}
 
+	/**
+	 * Va chercher l'ID de la carte ayant le maximum
+	 * 
+	 * @return ID maximum de la liste de cartes
+	 */
 	public int maxCarte() {
 		return allCartes.size();
 	}
