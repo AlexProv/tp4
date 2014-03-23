@@ -26,7 +26,7 @@ public class Interaction {
 	 * @param option Le numero du choix dans le menu principal
 	 */
 	public static void IOmenu(int option)
-	{
+	{	
 		System.out.print("Option selectionne: " + option + ". ");
 		switch (option) {
 		case 1:

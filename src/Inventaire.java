@@ -24,7 +24,8 @@ public class Inventaire{
 			e.printStackTrace();
 		}
 		
-		int i = Integer.parseInt(s);
+		int i = Integer.parseInt(s.replaceAll("\\s+", ""));
+		
 		switch(i){ 
 			case 1 : Interaction.IOmenu(i); ajouterJoueur(); break;
 			case 2 : Interaction.IOmenu(i); afficherJoueur(); break;
