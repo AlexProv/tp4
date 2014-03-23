@@ -86,7 +86,7 @@ public class Carte {
 		List<Integer> listCartes = new ArrayList<Integer>();
 		for (Map.Entry<Integer, TupleCarte> entry : allCartes.entrySet())
 		{
-		    if(entry.getValue().getIdJoueur() == id){
+		    if(entry.getValue().getIdJoueur().equals(id)){
 		    	int idCarte = entry.getKey();
 		    	listCartes.add(idCarte);
 		    }

@@ -28,9 +28,9 @@ public class Inventaire{
 		switch(i){ 
 			case 1 : Interaction.IOmenu(i); ajouterJoueur(); break;
 			case 2 : Interaction.IOmenu(i); afficherJoueur(); break;
-//			case 3 : Interaction.IOmenu(i); miseAJour(); break;
+			case 3 : Interaction.IOmenu(i); miseAJour(); break;
 			case 4 : Interaction.IOmenu(i); effaceJoueur(); break;
-			case 5 : Interaction.IOmenu(i); rapport(); break;
+//			case 5 : Interaction.IOmenu(i); rapport(); break;
 			case 6 : Interaction.IOmenu(i); sauvegarderFichier(); break;
 			case 0 : Interaction.IOmenu(i); Interaction.merci(); gestionInventaire.fermer(); System.exit(0); break;
 			default: System.out.println("Rentrer un chiffre entre 0 et 6 svp") ; break;
